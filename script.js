@@ -42,10 +42,15 @@ async function run() {
   // Convert the data to a form we can use for training.
   const tensorData = convertToTensor(data);
   const {inputs, labels} = tensorData;
-	    
+      
   // Train the model  
   await trainModel(model, inputs, labels);
   console.log('Done Training');
+
+
+
+  // Make some predictions using the model and compare them to the
+  // original data
   testModel(model, data, tensorData);
 
 }
@@ -62,6 +67,9 @@ function createModel() {
   
   // Add a single input layer
   model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
+
+  // Add another layer
+  model.add(tf.layers.dense({units: 50, activation: 'sigmoid'}));
   
   // Add an output layer
   model.add(tf.layers.dense({units: 1, useBias: true}));
@@ -129,7 +137,7 @@ async function trainModel(model, inputs, labels) {
   });
   
   const batchSize = 32;
-  const epochs = 50;
+  const epochs = 100;
   
   return await model.fit(inputs, labels, {
     batchSize,
