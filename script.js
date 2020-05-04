@@ -68,9 +68,22 @@ function createModel() {
   // Add a single input layer
   model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
 
-  // Add another layer
+  // Add another layer with a sigmoid activation and 50 units
   model.add(tf.layers.dense({units: 50, activation: 'sigmoid'}));
-  
+
+  // Using a RELU activation for an additional layer
+  model.add(tf.layers.dense({units: 25, activation: 'relu6'}));
+
+
+  // Adding a sigmoid layer
+  model.add(tf.layers.dense({units: 100, activation: 'sigmoid'}));
+
+
+  // Add another linear layer
+  model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
+
+
+
   // Add an output layer
   model.add(tf.layers.dense({units: 1, useBias: true}));
 
